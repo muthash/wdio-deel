@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "wdio"
+    "pretest": "rm -R -f allure-results",
+    "test": "wdio || true",
+    "posttest": "allure open"
   },
   "repository": {
     "type": "git",

@@ -27,14 +27,6 @@ describe('Update User Details', () => {
 
     after( async () => {
         await LoginPage.logout();
-
-        const logoutButton = await $('[data-original-title="Logout"]');
-        await expect(logoutButton).toBeExisting();
-        await logoutButton.click();
-        await expect(await LoginPage.emailInput).toBeExisting();
-
-        const newPageUrl = await browser.getUrl();
-        chaiExpect(newPageUrl).to.equal('https://dev.deel.wtf/login');
     });
     
     it('should update Date of birth', async () => {

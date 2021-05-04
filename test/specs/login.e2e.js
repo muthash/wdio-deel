@@ -17,7 +17,7 @@ describe('Login into the application', () => {
         await expect(errorfield).toHaveText('Invalid email address');
     });
     
-    it('should login with valid credentials', async () => {
+    it('should login with valid credentials and logout', async () => {
         await expect(browser).toHaveTitle(fixture.loginPageTitle);
         await LoginPage.login();
         
@@ -28,5 +28,15 @@ describe('Login into the application', () => {
         const pageUrl = await browser.getUrl();
         chaiExpect(pageUrl).to.not.equal('https://dev.deel.wtf/login');
         chaiExpect(pageUrl).to.equal('https://dev.deel.wtf/');
+
+        await LoginPage.logout();
+
+        const logoutButton = await $('[data-original-title="Logout"]');
+        await expect(logoutButton).toBeExisting();
+        await logoutButton.click();
+        await expect(await LoginPage.emailInput).toBeExisting();
+
+        const newPageUrl = await browser.getUrl();
+        chaiExpect(newPageUrl).to.equal('https://dev.deel.wtf/login');
     });
 });
