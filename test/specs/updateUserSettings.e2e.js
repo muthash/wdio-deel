@@ -5,7 +5,7 @@ import UserDetailsPage from '../pageobjects/userDetails.page';
 import fixture from '../fixtures';
 
 describe('Update User Details', () => {
-    beforeEach(async () => {
+    before(async () => {
         UserDetailsPage.open();
         await LoginPage.login();
 
@@ -13,6 +13,9 @@ describe('Update User Details', () => {
         await expect(settings).toBeExisting();
         await settings.click();
 
+    });
+
+    beforeEach(async () => {
         const accountSettings = await $('.ml-11:nth-child(2) .menu-option');
         await expect(accountSettings).toBeExisting();
         await accountSettings.click();
@@ -34,8 +37,19 @@ describe('Update User Details', () => {
         await expect(dateOfBirthLabel).toHaveTextContaining(fixture.dateOfBirthText)
     });
     
-    // it('should update I’m a citizen of', async () => {
-    // });
+    it('should update I’m a citizen of', async () => {
+        const citizenOfInput = await UserDetailsPage.citizenOfInput;
+        await citizenOfInput.click();
+
+        const country = await $('#react-select-2-option-'+fixture.countryOptionNumber);
+        country.click();
+
+        await (await UserDetailsPage.submitButton).click();
+
+        const citizenOfLabel = await $('[data-qa="citizen-of"]');
+        await expect(citizenOfLabel).toBeExisting();
+        await expect(citizenOfLabel).toHaveTextContaining(fixture.citizenOf)
+    });
 
     // it('should update Phone number', async () => {
     // });
