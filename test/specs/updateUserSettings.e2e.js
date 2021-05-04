@@ -15,6 +15,13 @@ describe('Update User Details', () => {
 
     });
 
+    after( async () => {
+        await LoginPage.logout();
+
+        const pageUrl = await browser.getUrl();
+        chaiExpect(pageUrl).to.equal('https://dev.deel.wtf/login/');
+    });
+
     beforeEach(async () => {
         const accountSettings = await $('.ml-11:nth-child(2) .menu-option');
         await expect(accountSettings).toBeExisting();

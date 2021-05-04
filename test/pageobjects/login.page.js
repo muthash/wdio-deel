@@ -14,10 +14,15 @@ class LoginPage extends Page {
         return $('h1.mb-9')
     }
 
-    async login () {
+    async login() {
         await (await this.emailInput).setValue(global.userEmail);
         await (await this.passwordInput).setValue(global.userPassword);
         await (await this.logInBtn).click();
+    }
+
+    async logout() {
+        const logoutButton = await $('.tooltip > .button svg');
+        await logoutButton.click();
     }
   
     open() {

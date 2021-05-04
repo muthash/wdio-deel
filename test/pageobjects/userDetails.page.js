@@ -6,7 +6,7 @@ class UserDetailsPage extends Page {
     }
 
     get citizenOfInput() {
-        return $('[name="citizen-of"]');
+        return $('[data-qa="country-select"]');
     }
 
     get phoneInput() {
