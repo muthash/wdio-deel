@@ -51,6 +51,14 @@ describe('Update User Details', () => {
         await expect(citizenOfLabel).toHaveTextContaining(fixture.citizenOf)
     });
 
-    // it('should update Phone number', async () => {
-    // });
+    it('should update Phone number', async () => {
+        const phoneInput = await UserDetailsPage.phoneInput;
+        await phoneInput.setValue(fixture.phone);
+
+        await (await UserDetailsPage.submitButton).click();
+
+        const citizenOfLabel = await $('[data-qa="phone-number"]');
+        await expect(citizenOfLabel).toBeExisting();
+        await expect(citizenOfLabel).toHaveTextContaining(fixture.phone)
+    });
 });
