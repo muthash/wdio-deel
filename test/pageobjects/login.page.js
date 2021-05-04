@@ -21,7 +21,8 @@ class LoginPage extends Page {
     }
 
     async logout() {
-        const logoutButton = await $('.tooltip > .button svg');
+        const logoutButton = await $('[data-original-title="Logout"]');
+        await expect(logoutButton).toBeExisting();
         await logoutButton.click();
     }
   

@@ -6,13 +6,6 @@ describe('Login into the application', () => {
     beforeEach(() => {
         LoginPage.open();
     });
-
-    after(async () => {
-        LoginPage.logout();
-
-        const pageUrl = await browser.getUrl();
-        chaiExpect(pageUrl).to.equal('https://dev.deel.wtf/login/');
-    });
     
     it('should not allow login with invalid email', async () => {
         await expect(browser).toHaveTitle(fixture.loginPageTitle);
@@ -27,13 +20,13 @@ describe('Login into the application', () => {
     it('should login with valid credentials', async () => {
         await expect(browser).toHaveTitle(fixture.loginPageTitle);
         await LoginPage.login();
+        
         const button = await $('.m-4');
-
         await expect(button).toBeExisting();
         await expect(button).toHaveTextContaining('Settings');
         
         const pageUrl = await browser.getUrl();
-        chaiExpect(pageUrl).to.not.equal('https://dev.deel.wtf/login/');
+        chaiExpect(pageUrl).to.not.equal('https://dev.deel.wtf/login');
         chaiExpect(pageUrl).to.equal('https://dev.deel.wtf/');
     });
 });

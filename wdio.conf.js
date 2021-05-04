@@ -3,8 +3,6 @@ import allure from 'allure-commandline';
 const userEmail =  process.env.EMAIL;
 const userPassword = process.env.PASSWORD;
 
-console.log(userEmail)
-
 export const config = {
     //
     // ====================

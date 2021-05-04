@@ -15,13 +15,6 @@ describe('Update User Details', () => {
 
     });
 
-    after( async () => {
-        await LoginPage.logout();
-
-        const pageUrl = await browser.getUrl();
-        chaiExpect(pageUrl).to.equal('https://dev.deel.wtf/login/');
-    });
-
     beforeEach(async () => {
         const accountSettings = await $('.ml-11:nth-child(2) .menu-option');
         await expect(accountSettings).toBeExisting();
@@ -30,6 +23,18 @@ describe('Update User Details', () => {
         const editButton =  await $('.mt-11:nth-child(2) .anchor div');
         await expect(editButton).toBeExisting();
         await editButton.click();
+    });
+
+    after( async () => {
+        await LoginPage.logout();
+
+        const logoutButton = await $('[data-original-title="Logout"]');
+        await expect(logoutButton).toBeExisting();
+        await logoutButton.click();
+        await expect(await LoginPage.emailInput).toBeExisting();
+
+        const newPageUrl = await browser.getUrl();
+        chaiExpect(newPageUrl).to.equal('https://dev.deel.wtf/login');
     });
     
     it('should update Date of birth', async () => {
